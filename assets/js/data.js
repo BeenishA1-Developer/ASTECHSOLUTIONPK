@@ -8,13 +8,14 @@
    Save the file and re-upload it — the site updates itself.
    ============================================================ */
 
-const STATS=[["Projects Delivered",null],["Happy Clients",null],["Team Members",null],["Technologies",null],["Services",9],["Years of Experience",null]];
+const STATS=[["Happy Clients",99,"%"],["Services & Solutions",60],["Countries Served",6],["Industries Served",15]];
 
 const TECH={Frontend:["HTML5","CSS3","JavaScript","TypeScript","React","Next.js","Vue.js","Angular","Tailwind CSS","Bootstrap","Redux","Three.js","GSAP"],Backend:["Node.js","Express.js","PHP","Laravel","Python","Django","FastAPI","Java","Spring Boot",".NET","REST APIs","GraphQL"],Mobile:["Flutter","React Native","Kotlin","Swift","Android Studio","Xcode","Firebase"],"AI & Automation":["OpenAI API","Claude API","TensorFlow","PyTorch","LangChain","n8n","Zapier","Make","AI Chatbots"],Cloud:["AWS","Google Cloud","Azure","Docker","Kubernetes","Vercel","Netlify","Cloudflare","DigitalOcean","GitHub Actions"],Database:["MySQL","PostgreSQL","MongoDB","Redis","Supabase","SQLite","Firebase"],"E-Commerce":["Shopify","WooCommerce","WordPress","Magento","Stripe","PayPal","Easypaisa","JazzCash"],Marketing:["Google Ads","Meta Ads","TikTok Ads","Google Analytics","Search Console","SEMrush","Ahrefs","Mailchimp"],"Design Tools":["Figma","Adobe XD","Photoshop","Illustrator","Canva","Blender"],"Game Dev":["Unity","Unreal Engine","Godot","C#","C++"],"Dev Tools":["Git","GitHub","GitLab","VS Code","Postman","Jira","Trello","Slack"]};
 
 const CATS=["Web Development","AI & Automation","Mobile Apps","UI/UX","E-Commerce","Digital Marketing","SEO","Game Development"];
 
 const INDS=["Healthcare","Real Estate","Education","Restaurants","E-Commerce","Startups","Small Businesses"];
+const SECTORS=["Retail","Real Estate","Healthcare","Pharmacy","Education","Logistics","E-Commerce","Hospitality","Finance","Manufacturing","Legal & Professional","Fitness","Construction","Travel & Tourism","Salon & Beauty"];
 
 const ARTICLES=[ /* {t,c,i,d,body,tips} – short editorial reads for the article dialog */
 {t:"How AI Automation Saves Small Teams Hours",c:"AI & Automation",i:"Small Businesses",d:"Where automation delivers the quickest wins.",body:"Small teams can save time by automating repetitive admin work: sorting enquiries, sending appointment reminders, or moving data between tools. Start with one task that follows clear rules, then check that the automation is accurate before expanding it.",tips:["Choose a frequent, predictable task first.","Keep a human review step for important customer decisions."]},

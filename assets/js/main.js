@@ -4,7 +4,7 @@
 const WA_NUMBER="923287801028";                 // e.g. "923001234567" (digits only, with country code)
 const NEWSLETTER_ENDPOINT="";       // your real email-platform / backend URL (POST {email})
 const CHAT_ENDPOINT="";
-const SOCIAL={Facebook:"",Instagram:"https://www.instagram.com/astechsolutionpk",LinkedIn:"https://www.linkedin.com/company/as-tech-solution-pk/",YouTube:"",TikTok:"https://www.tiktok.com/@astechsolutionpk"}; // paste your real profile URLs
+const SOCIAL={Facebook:"https://www.facebook.com/AyeshaDev281",Instagram:"https://www.instagram.com/astechsolutionpk",LinkedIn:"https://www.linkedin.com/in/ayesha-sadiqa-269b5638b/",YouTube:"",TikTok:"https://www.tiktok.com/@astechsolutionpk"};
 const SOCIAL_ICONS={
   Instagram:'<svg class="social-icon instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.1"/><circle cx="12" cy="12" r="4.1"/><circle class="icon-dot" cx="17.7" cy="6.6" r="1"/></svg>',
   LinkedIn:'<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2ZM3.4 9.2H7v11.4H3.4V9.2Zm5.7 0h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.3 4.3 5.3v6.4h-3.6v-5.7c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.8H9.1V9.2Z"/></svg>',

@@ -6,8 +6,9 @@ const NEWSLETTER_ENDPOINT="";       // your real email-platform / backend URL (P
 const CHAT_ENDPOINT="";
 const SOCIAL={Facebook:"https://www.facebook.com/AyeshaDev281",Instagram:"https://www.instagram.com/astechsolutionpk",LinkedIn:"https://www.linkedin.com/in/ayesha-sadiqa-269b5638b/",YouTube:"",TikTok:"https://www.tiktok.com/@astechsolutionpk"};
 const SOCIAL_ICONS={
-  Instagram:'<svg class="social-icon instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.1"/><circle cx="12" cy="12" r="4.1"/><circle class="icon-dot" cx="17.7" cy="6.6" r="1"/></svg>',
-  LinkedIn:'<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2ZM3.4 9.2H7v11.4H3.4V9.2Zm5.7 0h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.3 4.3 5.3v6.4h-3.6v-5.7c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.8H9.1V9.2Z"/></svg>',
+  Facebook:'<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.45 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.75v8h3.4Z"/></svg>',
+  Instagram:'<svg class="social-icon instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle class="icon-dot" cx="17.7" cy="6.5" r="1"/></svg>',
+  LinkedIn:'<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.7H3.2V20h3.3V8.7ZM4.85 3a1.92 1.92 0 1 0 0 3.84 1.92 1.92 0 0 0 0-3.84ZM20.8 13.5c0-3.4-1.8-5-4.2-5-1.9 0-2.75 1.05-3.22 1.8V8.7h-3.3V20h3.3v-6.25c0-1.65.31-3.25 2.36-3.25 2.02 0 2.04 1.89 2.04 3.36V20h3.3l-.28-6.5Z"/></svg>',
   TikTok:'<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 8.3a7.1 7.1 0 0 1-4.3-1.5v7.1a6.1 6.1 0 1 1-5.3-6v3.7a2.5 2.5 0 1 0 1.7 2.4V2.8h3.6c.2 2 1.7 3.6 4.3 3.8v1.7Z"/></svg>'
 };
 const CONTACT_ENDPOINT="";          // contact form backend URL (POST JSON)             // secure server-side AI endpoint (keep API keys on server)
@@ -241,7 +242,7 @@ H('#car',SV.map((x,i)=>`<div style="transform:rotateY(${i*360/SV.length}deg) tra
 document.querySelectorAll('.hero').forEach(h=>{if(!h.querySelector('.stage,#net'))h.insertAdjacentHTML('beforeend','<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i>')});
 /* ===== v4: footer + luxury 3D ===== */
 H('#fsv',SV.map(x=>`<li><a href="#services">${x}</a></li>`).join(''));
-Object.entries(SOCIAL).filter(([name,url])=>url).forEach(([name,url])=>$('#soc').insertAdjacentHTML('beforeend',`<a href="${url}" target="_blank" rel="noopener" aria-label="${name}" title="${name}">${SOCIAL_ICONS[name]}</a>`));
+Object.entries(SOCIAL).filter(([name,url])=>url&&SOCIAL_ICONS[name]).forEach(([name,url])=>$('#soc').insertAdjacentHTML('beforeend',`<a href="${url}" target="_blank" rel="noopener" aria-label="${name}" title="${name}">${SOCIAL_ICONS[name]}</a>`));
 $('#fnl').onsubmit=async e=>{e.preventDefault();const m=$('#fnm'),v=$('#fem').value.trim(),z=(t,c)=>{m.textContent=t;m.style.color=c};
 if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v))return z('Please enter a valid email address.','#ff9a8f');
 if(!NEWSLETTER_ENDPOINT)return z('Newsletter is not connected yet. Please contact us directly.','#ffd27a');

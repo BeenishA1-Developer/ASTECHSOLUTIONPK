@@ -156,7 +156,7 @@ html[data-theme="light"] .msg .eyebrow::before{
   content:"";display:inline-block;width:54px;height:2px;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#bca2ff);
 }
 html[data-theme="light"] .msg blockquote{
-  margin:0 0 24px;color:#2a3555;font:600 clamp(4rem,5vw,7rem)/.86 "Cormorant Garamond",Georgia,serif;letter-spacing:-.05em;font-style:normal;text-wrap:balance;
+  margin:0 0 22px;color:#2a3555;font:600 clamp(2rem,5vw,4.5rem)/.98 "Cormorant Garamond",Georgia,serif;letter-spacing:-.035em;font-style:normal;text-wrap:balance;
 }
 html[data-theme="light"] .msg .mut{
   margin:0;color:#2f3d5f;font-family:"Sora",sans-serif;font-size:clamp(1.18rem,1.6vw,1.7rem);line-height:1.3;font-weight:500;
@@ -169,6 +169,14 @@ html[data-theme="light"] .soc a{
   width:62px;height:62px;background:#fff;border:1px solid #d8e1f6;color:#2d5ad6;box-shadow:0 10px 24px rgba(57,86,160,.08);font-size:1.5rem
 }
 html[data-theme="light"] .soc a:hover{background:#f3f6ff;color:#5b3ae4}
+@media(max-width:600px){
+  html[data-theme="light"] .msg{padding:24px 22px;border-radius:24px}
+  html[data-theme="light"] .msg blockquote{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.02;margin-bottom:18px}
+  html[data-theme="light"] .msg .mut{font-size:1rem;line-height:1.45}
+  html[data-theme="light"] .profile-social{margin-top:20px;gap:10px}
+  html[data-theme="light"] .social-links-label{font-size:.92rem}
+  html[data-theme="light"] .msg .soc a{width:48px;height:48px;font-size:1.15rem}
+}
 
 /* Surfaces */
 html[data-theme="light"] section.light{background:rgba(255,255,255,.66)}
@@ -280,6 +288,25 @@ html[data-theme="dark"] .thm{background:rgba(255,255,255,.10);color:#ffd97a;bord
   #v-about .about-actions .btn{width:100%;text-align:center}
   #v-about .about-visual{height:300px}
   #v-about .float-card{padding:8px 10px;font-size:.58rem}
+}
+@media(max-width:760px){
+  #v-about .grid{gap:14px}
+  #v-about .card{padding:18px;border-radius:20px}
+  #v-about .card .ic{width:40px;height:40px;margin-bottom:12px;border-radius:12px;font-size:1rem}
+  #v-about .card h3{margin:0 0 7px;font-size:1rem;line-height:1.35}
+  #v-about .card .mut{font-size:.88rem;line-height:1.55}
+}
+#v-about .rv.in>.card{
+  animation:pop3d .8s cubic-bezier(.2,.8,.2,1) backwards,aboutCardFloat 5.5s ease-in-out infinite;
+  animation-delay:calc(var(--i,0)*90ms),calc(var(--i,0)*-.7s)
+}
+#v-about .card{transition:transform .28s ease,box-shadow .28s ease}
+@keyframes aboutCardFloat{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  #v-about .card:hover{
+    transform:perspective(800px) translateY(-4px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+    box-shadow:0 16px 30px rgba(16,28,61,.12)
+  }
 }
 @media (prefers-reduced-motion:reduce){
   .thm:hover{transform:none}

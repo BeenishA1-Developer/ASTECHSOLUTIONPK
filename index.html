@@ -133,7 +133,7 @@
 
 <!-- ============ SERVICES ============ -->
 <div class="view" id="v-services">
-<section class="hero"><div class="wrap"><p class="eyebrow">Our Services</p><h1>Digital services crafted<br>for ambitious businesses</h1><p class="lead">From the first idea to launch and growth, everything under one roof.</p><a class="btn pri" href="index.html?page=contact">Request a Quote</a></div></section>
+<section class="hero services-hero"><div class="wrap hgrid services-hero-layout"><div class="hero-copy"><p class="eyebrow">Our Services</p><h1>Digital services crafted<br>for ambitious businesses</h1><p class="lead">From the first idea to launch and growth, everything under one roof.</p><a class="btn pri" href="index.html?page=contact">Request a Quote</a></div><div class="stage hero-visual career-services-hero-visual" aria-hidden="true"><div class="career-orbit-fallback"><i class="career-orbit-core"></i><i class="career-orbit-ring career-orbit-ring-one"></i><i class="career-orbit-ring career-orbit-ring-two"></i></div><canvas id="services-gl"></canvas><div class="scene-chip scene-chip-one"><i></i>Digital expertise</div><div class="scene-chip scene-chip-two"><i></i>Web · Apps · AI</div></div></div></section>
 <section><div class="wrap"><div class="sh"><p class="eyebrow">What We Do</p><h2>Nine services, one trusted team</h2></div><div class="grid g3 rv" id="svd"></div></div></section>
 <section style="background:var(--navy2)"><div class="wrap"><div class="sh"><p class="eyebrow">Our Expertise</p><h2>Every discipline, in every dimension</h2></div><div class="car rv" aria-hidden="true"><div class="carin" id="car2"></div></div></div></section>
 <section class="light"><div class="wrap"><div class="sh"><p class="eyebrow">Selected Projects</p><h2>Websites and apps we've built</h2><p class="mut">Explore our website and app projects.</p></div><div class="grid g4 rv" id="gal2"></div></div></section>
@@ -146,8 +146,8 @@
 </div>
 <!-- ============ CAREERS ============ -->
 <div class="view" id="v-careers">
-<section class="hero"><div class="wrap"><p class="eyebrow">Careers</p><h1>Grow your career<br>with AS Tech Solution PK</h1>
-<p class="lead">Join a technology team that values learning, creativity and meaningful work.</p></div></section>
+<section class="hero career-hero"><div class="wrap hgrid career-hero-layout"><div class="hero-copy career-hero-copy"><p class="eyebrow">Careers</p><h1>Grow your career<br>with AS Tech Solution PK</h1>
+<p class="lead">Join a technology team that values learning, creativity and meaningful work.</p></div><div class="stage hero-visual career-services-hero-visual" aria-hidden="true"><div class="career-orbit-fallback"><i class="career-orbit-core"></i><i class="career-orbit-ring career-orbit-ring-one"></i><i class="career-orbit-ring career-orbit-ring-two"></i></div><canvas id="career-gl"></canvas><div class="scene-chip scene-chip-one"><i></i>Creative growth</div><div class="scene-chip scene-chip-two"><i></i>Build what’s next</div></div></div></section>
 <section class="light"><div class="wrap"><div class="sh"><p class="eyebrow">What You Will Experience</p><h2>A place to build and belong</h2></div>
 <div class="grid g3 rv" id="exp"></div></div></section>
 <section><div class="wrap"><div class="sh"><p class="eyebrow">Roles We Look For</p><h2>Skills that power our work</h2></div><div class="grid g4 rv" id="roles"></div></div></section>
@@ -162,9 +162,19 @@
 
 <!-- ============ BLOG ============ -->
 <div class="view" id="v-blog">
-<section class="hero"><div class="wrap"><p class="eyebrow">Insights That Move Technology Forward</p><h1>Insights &amp; Ideas</h1>
-<p class="lead">Technology insights, digital trends, development guides, business strategies and industry knowledge.</p>
-<form class="sr" role="search" onsubmit="return false"><label class="sr-only" for="q" style="position:absolute;left:-9999px">Search Blog</label><input id="q" type="search" placeholder="Search Blog"></form></div></section>
+<section class="hero blog-hero"><div class="wrap blog-hero-layout">
+<div class="blog-hero-copy"><p class="eyebrow">Ideas that move technology forward</p><h1>Insights &amp; Ideas<br><span>for what comes next.</span></h1>
+<p class="lead">Explore practical thinking on AI, web and mobile—from new ideas to useful next steps.</p>
+<form class="sr blog-search" role="search" onsubmit="return false"><label class="sr-only" for="q" style="position:absolute;left:-9999px">Search Blog</label><span class="blog-search-icon" aria-hidden="true">⌕</span><input id="q" type="search" placeholder="Search articles, topics and guides"></form>
+<div class="blog-hero-topics" aria-label="Popular subjects"><span>AI &amp; Automation</span><i>·</i><span>Web</span><i>·</i><span>Mobile</span></div></div>
+<div class="blog-hero-visual" aria-hidden="true">
+  <div class="blog-hero-glow"></div><div class="blog-hero-orbit blog-hero-orbit-one"></div><div class="blog-hero-orbit blog-hero-orbit-two"></div><div class="blog-hero-orbit blog-hero-orbit-three"></div>
+  <div class="blog-hero-image"><img src="assets/img/blog/blog3.jpeg" alt="" fetchpriority="high"><span class="blog-hero-image-label"><i></i> Ideas in motion</span></div>
+  <span class="blog-hero-chip blog-hero-chip-one"><i>✦</i> AI &amp; Automation</span>
+  <span class="blog-hero-chip blog-hero-chip-two"><i>⌘</i> Web Development</span>
+  <span class="blog-hero-chip blog-hero-chip-three"><i>◈</i> Mobile Apps</span>
+  <span class="blog-hero-spark blog-hero-spark-one"></span><span class="blog-hero-spark blog-hero-spark-two"></span>
+</div></div></section>
 
 <section class="light"><div class="wrap"><div class="sh"><p class="eyebrow">Featured Articles</p><h2>Start here</h2></div>
 <div class="grid g2" id="feat"></div>
@@ -196,7 +206,7 @@
 </div>
 <!-- ============ CONTACT ============ -->
 <div class="view" id="v-contact">
-<section class="hero contact-hero"><div class="wrap"><p class="eyebrow">Contact Our Team</p><h1>Have a project in mind?</h1><p class="lead">Tell us what you’re planning. We’ll help you explore the scope and find a practical next step.</p><div class="hero-actions"><a class="btn pri contact-scroll-link" href="#cf2">Tell us about it <span aria-hidden="true">→</span></a><a class="btn ghost" href="#" data-wa>Chat on WhatsApp</a></div><p class="contact-capabilities">Websites · Mobile apps · AI · Custom software</p></div></section>
+<section class="hero contact-hero"><div class="wrap hgrid contact-hero-layout"><div class="contact-hero-copy"><p class="eyebrow">Contact Our Team</p><h1>Have a project in mind?</h1><p class="lead">Tell us what you’re planning. We’ll help you explore the scope and find a practical next step.</p><div class="hero-actions"><a class="btn pri contact-scroll-link" href="#cf2">Tell us about it <span aria-hidden="true">→</span></a><a class="btn ghost" href="#" data-wa>Chat on WhatsApp</a></div><p class="contact-capabilities">Websites · Mobile apps · AI · Custom software</p></div><div class="stage hero-visual career-services-hero-visual" aria-hidden="true"><div class="career-orbit-fallback"><i class="career-orbit-core"></i><i class="career-orbit-ring career-orbit-ring-one"></i><i class="career-orbit-ring career-orbit-ring-two"></i></div><canvas id="contact-gl"></canvas><div class="scene-chip scene-chip-one"><i></i>Let’s build together</div><div class="scene-chip scene-chip-two"><i></i>Your next big idea</div></div></div></section>
 <section class="light contact-main"><div class="wrap contact-grid">
 <aside class="contact-info rv"><p class="eyebrow">Get in touch</p><h2>Choose how you’d like to connect</h2><p class="mut">Already know what you need? Reach out directly. Or send a project enquiry and include as much detail as you have.</p>
 <div class="contact-methods">

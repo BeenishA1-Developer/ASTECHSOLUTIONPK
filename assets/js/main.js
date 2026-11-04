@@ -52,20 +52,39 @@ const BLOG_ARTWORK={
   realestate:'<svg viewBox="0 0 220 130"><path d="m55 63 55-39 55 39v43H55z"/><path d="M94 106V77h32v29M72 66v-9h17v-3m43 8h14v14h-14z"/><path d="M45 64 110 17l65 47"/></svg>',
   education:'<svg viewBox="0 0 220 130"><path d="m41 52 69-30 69 30-69 30z"/><path d="M70 65v27c23 18 57 18 80 0V65m29-13v36"/><circle cx="179" cy="93" r="5"/><path d="M179 88v-36"/></svg>'
 };
-function articleArtwork(a){
+const BLOG_ARTICLE_IMAGES={
+  "How AI Automation Saves Small Teams Hours":{src:"assets/img/blog/blog3.jpeg",alt:"Glowing artificial-intelligence brain surrounded by connected data nodes"},
+  "Choosing the Right Stack for Your Web App":{src:"assets/img/blog/blog2.jpeg",alt:"Web application surrounded by popular development framework and platform symbols"},
+  "Mobile App or Website First?":{src:"assets/img/blog/blog.jpeg",alt:"Smartphone displaying mobile apps, with iOS and Android symbols"}
+};
+const BLOG_SECTION_IMAGES={
+  "How AI Automation Saves Small Teams Hours":{src:"assets/img/find%20what%20matter/ai-automation-small-teams.jpeg",alt:"Small team using AI automation to reduce repetitive work"},
+  "Choosing the Right Stack for Your Web App":{src:"assets/img/find%20what%20matter/web-app-tech-stack.jpeg",alt:"Developer comparing web application frameworks and technologies"},
+  "Mobile App or Website First?":{src:"assets/img/find%20what%20matter/mobile-app-or-website.jpeg",alt:"Mobile app and website shown side by side for a platform decision"},
+  "UX Basics That Lift Conversions":{src:"assets/img/find%20what%20matter/ecommerce-ux-conversions.jpeg",alt:"Online shopping experience and conversion journey"},
+  "Launch Checklist for an Online Store":{src:"assets/img/find%20what%20matter/ecommerce-store-launch-checklist.jpeg",alt:"Online store launch checklist with commerce tools"},
+  "SEO Fundamentals for Local Businesses":{src:"assets/img/find%20what%20matter/local-seo-businesses.jpeg",alt:"Local SEO tools connecting nearby customers with a business"},
+  "Digital Tools for Clinics":{src:"assets/img/find%20what%20matter/clinic-digital-marketing.jpeg",alt:"Clinic website, appointment booking, and digital marketing tools"},
+  "Websites for Real Estate Agents":{src:"assets/img/find%20what%20matter/real-estate-agent-websites.jpeg",alt:"Real estate website displaying property listings and agent tools"},
+  "E-Learning Platforms: Where to Start":{src:"assets/img/find%20what%20matter/elearning-platforms.jpeg",alt:"Online learning platform and course development workflow"},
+  "Game Development: From Idea to Prototype":{src:"assets/img/find%20what%20matter/game-development-prototype.jpeg",alt:"Game development concept progressing from design to playable prototype"}
+};
+function articleArtwork(a,sectionImages=false){
+  const image=sectionImages?BLOG_SECTION_IMAGES[a.t]:BLOG_ARTICLE_IMAGES[a.t];
+  if(image)return `<div class="blog-art blog-art--photo"><img src="${image.src}" alt="${image.alt}" loading="lazy" decoding="async"></div>`;
   const industry={Healthcare:'healthcare','Real Estate':'realestate',Education:'education'}[a.i];
   const category={'AI & Automation':'ai','Web Development':'web','Mobile Apps':'mobile','UI/UX':'ux','E-Commerce':'ecommerce','Digital Marketing':'marketing',SEO:'seo','Game Development':'game'}[a.c];
   const visual=industry||category||'web';
   return `<div class="blog-art blog-art--${visual}" aria-hidden="true">${BLOG_ARTWORK[visual]}</div>`;
 }
-const art=(a,big)=>`<article class="card blog-card ${big?'lead-art':''}">${articleArtwork(a)}<span class="cat">${a.c}</span><h3 style="margin-top:8px;${big?'font-size:1.7rem':''}">${a.t}</h3><p class="mut">${a.d}</p><div class="meta">${[a.author,a.date,a.read].filter(Boolean).join(' · ')}</div><a class="btn ${big?'pri':'ghost'} read-article-btn" style="${big?'':'padding:8px 18px;'}${big?'':'color:inherit;border-color:currentColor'}" href="${a.url||'#'}" data-article-index="${ARTICLES.indexOf(a)}">Read Article <span aria-hidden="true">→</span></a></article>`;
+const art=(a,big,sectionImages=false)=>`<article class="card blog-card ${big?'lead-art':''}">${articleArtwork(a,sectionImages)}<span class="cat">${a.c}</span><h3 style="margin-top:8px;${big?'font-size:1.7rem':''}">${a.t}</h3><p class="mut">${a.d}</p><div class="meta">${[a.author,a.date,a.read].filter(Boolean).join(' · ')}</div><a class="btn ${big?'pri':'ghost'} read-article-btn" style="${big?'':'padding:8px 18px;'}${big?'':'color:inherit;border-color:currentColor'}" href="${a.url||'#'}" data-article-index="${ARTICLES.indexOf(a)}">Read Article <span aria-hidden="true">→</span></a></article>`;
 H('#feat',art(ARTICLES[0],1)+ART(1)+ART(2));function ART(n){return art(ARTICLES[n])}
 let cat="All",ind="All";
 function chips(id,arr,cur,fn){H(id,['All',...arr].map(x=>`<button class="chip ${x==cur?'on':''}" aria-pressed="${x==cur}">${x}</button>`).join(''));document.querySelectorAll(id+' .chip').forEach(b=>b.onclick=()=>{fn(b.textContent)})}
 function render(){const q=$('#q').value.toLowerCase();
 chips('#cats',CATS,cat,v=>{cat=v;render()});chips('#inds',INDS,ind,v=>{ind=v;render()});
 const r=ARTICLES.filter(a=>(cat=="All"||a.c==cat)&&(ind=="All"||a.i==ind)&&(a.t+a.d+a.c).toLowerCase().includes(q));
-H('#list',r.length?r.map(a=>art(a)).join(''):'<p class="mut">No articles found. Try another search or reset the filters.</p>')}
+H('#list',r.length?r.map(a=>art(a,false,true)).join(''):'<p class="mut">No articles found. Try another search or reset the filters.</p>')}
 $('#q').oninput=render;render();
 H('#trend',ARTICLES.slice(3,7).map((a,i)=>`<a class="trend blog-article-link" href="#" data-article-index="${ARTICLES.indexOf(a)}"><b>0${i+1}</b><div><strong>${a.t}</strong><div class="meta">${a.c}</div></div></a>`).join(''));
 H('#res',["How-to Guides","Beginner Guides","Tutorials","Checklists","Tips & Tricks","Technology Resources"].map((t,i)=>{const a=ARTICLES[i];return `<a class="card blog-resource-link" href="#" data-article-index="${ARTICLES.indexOf(a)}"><span class="cat">Resource</span><h3 style="margin-top:6px">${t}</h3><span class="btn ghost" style="padding:8px 18px;margin-top:12px">Explore guide <span aria-hidden="true">→</span></span></a>`}).join(''));
@@ -780,6 +799,159 @@ document.addEventListener('mousemove',e=>{const k=e.target.closest&&e.target.clo
     renderer.dispose();
     starGeometry.dispose();
   },{once:true});
+})();
+
+/* Three.js page heroes share an interactive orbit scene. */
+(()=>{
+document.querySelectorAll('.career-services-hero-visual').forEach(host=>{
+  const canvas=host.querySelector('canvas');
+  if(!canvas)return;
+  if(!window.THREE){host.classList.add('webgl-unavailable');return}
+
+  const reduceMotion=matchMedia('(prefers-reduced-motion:reduce)');
+  let renderer;
+  try{
+    renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'low-power'});
+  }catch(error){
+    host.classList.add('webgl-unavailable');
+    console.warn('Page hero 3D scene could not start; showing the visual fallback.',error);
+    return;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(42,1,.1,100);
+  camera.position.z=7;
+
+  const orbit=new THREE.Group();
+  scene.add(orbit);
+  const core=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.05,1),
+    new THREE.MeshStandardMaterial({color:0x7197ff,metalness:.28,roughness:.3,emissive:0x263f9d,emissiveIntensity:.3})
+  );
+  const wire=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.34,1),
+    new THREE.MeshBasicMaterial({color:0xb6a2ff,wireframe:true,transparent:true,opacity:.32})
+  );
+  const knot=new THREE.Mesh(
+    new THREE.TorusKnotGeometry(1.66,.018,120,8,2,3),
+    new THREE.MeshStandardMaterial({color:0xb38bff,metalness:.62,roughness:.28,emissive:0x321f6e,emissiveIntensity:.2})
+  );
+  orbit.add(core,wire,knot);
+
+  const rings=[1.86,2.2].map((radius,index)=>{
+    const ring=new THREE.Mesh(
+      new THREE.TorusGeometry(radius,.012,6,100),
+      new THREE.MeshBasicMaterial({color:index?0xb38bff:0x72a9ff,transparent:true,opacity:.48})
+    );
+    ring.rotation.x=1.02+index*.5;
+    ring.rotation.y=index*.5;
+    orbit.add(ring);
+    return ring;
+  });
+  const satellites=Array.from({length:5},(_,index)=>{
+    const satellite=new THREE.Mesh(
+      new THREE.OctahedronGeometry(.13,0),
+      new THREE.MeshStandardMaterial({color:index%2?0xb7a2ff:0x9ec5ff,metalness:.35,roughness:.32,emissive:0x283b7a,emissiveIntensity:.2})
+    );
+    orbit.add(satellite);
+    return satellite;
+  });
+  const starsPosition=new Float32Array(540);
+  for(let i=0;i<starsPosition.length;i++)starsPosition[i]=(Math.random()-.5)*12;
+  const starsGeometry=new THREE.BufferGeometry();
+  starsGeometry.setAttribute('position',new THREE.BufferAttribute(starsPosition,3));
+  const stars=new THREE.Points(starsGeometry,new THREE.PointsMaterial({color:0xacc5ff,size:.025,transparent:true,opacity:.65}));
+  scene.add(stars,new THREE.AmbientLight(0x9bb7ff,.9));
+  const keyLight=new THREE.PointLight(0xa6c2ff,2.1,30);
+  keyLight.position.set(4,4,6);
+  const fillLight=new THREE.PointLight(0xb58aff,1.2,30);
+  fillLight.position.set(-4,-2,3);
+  scene.add(keyLight,fillLight);
+
+  let frame=0,visible=false,lastTime=0,targetX=0,targetY=0,currentX=0,currentY=0;
+  const placeSatellites=time=>{
+    satellites.forEach((satellite,index)=>{
+      const angle=time*.00042+index*(Math.PI*2/satellites.length);
+      satellite.position.set(Math.cos(angle)*2.45,Math.sin(angle*1.35)*.8,Math.sin(angle)*1.25);
+      satellite.rotation.set(angle,angle*.8,angle*.55);
+    });
+  };
+  const render=()=>{
+    const width=host.clientWidth,height=host.clientHeight;
+    if(!width||!height)return;
+    renderer.setSize(width,height,false);
+    camera.aspect=width/height;
+    camera.fov=width<=560?58:42;
+    camera.updateProjectionMatrix();
+    orbit.scale.setScalar(width<380?.78:width<560?.9:width<900?1:1.08);
+    renderer.render(scene,camera);
+  };
+  const resizeObserver=new ResizeObserver(render);
+  resizeObserver.observe(host);
+  const animate=now=>{
+    frame=0;
+    if(!visible||document.hidden||reduceMotion.matches)return;
+    const delta=Math.min((now-lastTime)/1000,.05);
+    lastTime=now;
+    currentX+=(targetX-currentX)*.045;
+    currentY+=(targetY-currentY)*.045;
+    orbit.rotation.y=now*.00012+currentX*.34;
+    orbit.rotation.x=.06+Math.sin(now*.00032)*.06-currentY*.2;
+    core.rotation.y+=delta*.2;
+    wire.rotation.y-=delta*.11;
+    wire.rotation.x+=delta*.045;
+    knot.rotation.x+=delta*.08;
+    knot.rotation.y+=delta*.13;
+    rings.forEach((ring,index)=>{ring.rotation.z+=delta*(index?-.09:.12)});
+    placeSatellites(now);
+    stars.rotation.y+=delta*.012;
+    renderer.render(scene,camera);
+    frame=requestAnimationFrame(animate);
+  };
+  const start=()=>{
+    if(!visible||document.hidden||reduceMotion.matches||frame)return;
+    lastTime=performance.now();
+    frame=requestAnimationFrame(animate);
+  };
+  const sceneObserver=new IntersectionObserver(entries=>{
+    visible=entries.some(entry=>entry.isIntersecting);
+    if(visible){render();start()}
+    else if(frame){cancelAnimationFrame(frame);frame=0}
+  },{threshold:.05});
+  sceneObserver.observe(host);
+  host.addEventListener('pointermove',event=>{
+    if(event.pointerType==='touch'||!matchMedia('(hover:hover)').matches)return;
+    const bounds=host.getBoundingClientRect();
+    targetX=(event.clientX-bounds.left)/bounds.width-.5;
+    targetY=(event.clientY-bounds.top)/bounds.height-.5;
+  },{passive:true});
+  host.addEventListener('pointerleave',()=>{targetX=0;targetY=0});
+  document.addEventListener('visibilitychange',start);
+  const motionChange=()=>{
+    if(reduceMotion.matches&&frame){cancelAnimationFrame(frame);frame=0}
+    else start();
+    render();
+  };
+  if(reduceMotion.addEventListener)reduceMotion.addEventListener('change',motionChange);
+  else reduceMotion.addListener(motionChange);
+  addEventListener('pagehide',()=>{
+    if(frame)cancelAnimationFrame(frame);
+    sceneObserver.disconnect();
+    resizeObserver.disconnect();
+    document.removeEventListener('visibilitychange',start);
+    if(reduceMotion.removeEventListener)reduceMotion.removeEventListener('change',motionChange);
+    else reduceMotion.removeListener(motionChange);
+    renderer.dispose();
+    scene.traverse(object=>{
+      if(object.geometry)object.geometry.dispose();
+      if(object.material){
+        const materials=Array.isArray(object.material)?object.material:[object.material];
+        materials.forEach(material=>material.dispose());
+      }
+    });
+  },{once:true});
+  render();
+});
 })();
 
 /* Reveal the Contact page CTA once when it first enters view. */

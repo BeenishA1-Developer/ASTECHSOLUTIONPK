@@ -4,7 +4,8 @@
 const WA_NUMBER="923287801028";                 // e.g. "923001234567" (digits only, with country code)
 const NEWSLETTER_ENDPOINT="";       // your real email-platform / backend URL (POST {email})
 const CHAT_ENDPOINT="";
-const SOCIAL={Facebook:"https://www.facebook.com/AyeshaDev281",Instagram:"https://www.instagram.com/astechsolutionpk",LinkedIn:"https://www.linkedin.com/in/ayesha-sadiqa-269b5638b/",YouTube:"",TikTok:"https://www.tiktok.com/@astechsolutionpk"};
+const CEO_SOCIAL={Facebook:"https://www.facebook.com/AyeshaDev281",LinkedIn:"https://www.linkedin.com/in/ayesha-sadiqa-269b5638b/"};
+const COMPANY_SOCIAL={Facebook:"https://www.facebook.com/share/1BAvLBWFYa/",Instagram:"https://www.instagram.com/astechsolutionpk",LinkedIn:"https://www.linkedin.com/company/as-tech-solution-pk/",TikTok:"https://www.tiktok.com/@astechsolutionpk"};
 const SOCIAL_ICONS={
   Facebook:'<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.45 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.75v8h3.4Z"/></svg>',
   Instagram:'<svg class="social-icon instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle class="icon-dot" cx="17.7" cy="6.5" r="1"/></svg>',
@@ -57,7 +58,7 @@ function articleArtwork(a){
   const visual=industry||category||'web';
   return `<div class="blog-art blog-art--${visual}" aria-hidden="true">${BLOG_ARTWORK[visual]}</div>`;
 }
-const art=(a,big)=>`<article class="card blog-card ${big?'lead-art':''}">${articleArtwork(a)}<span class="cat">${a.c}</span><h3 style="margin-top:8px;${big?'font-size:1.7rem':''}">${a.t}</h3><p class="mut">${a.d}</p><div class="meta">${[a.author,a.date,a.read].filter(Boolean).join(' · ')}</div><a class="btn ${big?'pri':'ghost'} read-article-btn" style="${big?'':'padding:8px 18px;'}${big?'':'color:inherit;border-color:currentColor'}" href="${a.url||'#'}">Read Article <span aria-hidden="true">→</span></a></article>`;
+const art=(a,big)=>`<article class="card blog-card ${big?'lead-art':''}">${articleArtwork(a)}<span class="cat">${a.c}</span><h3 style="margin-top:8px;${big?'font-size:1.7rem':''}">${a.t}</h3><p class="mut">${a.d}</p><div class="meta">${[a.author,a.date,a.read].filter(Boolean).join(' · ')}</div><a class="btn ${big?'pri':'ghost'} read-article-btn" style="${big?'':'padding:8px 18px;'}${big?'':'color:inherit;border-color:currentColor'}" href="${a.url||'#'}" data-article-index="${ARTICLES.indexOf(a)}">Read Article <span aria-hidden="true">→</span></a></article>`;
 H('#feat',art(ARTICLES[0],1)+ART(1)+ART(2));function ART(n){return art(ARTICLES[n])}
 let cat="All",ind="All";
 function chips(id,arr,cur,fn){H(id,['All',...arr].map(x=>`<button class="chip ${x==cur?'on':''}" aria-pressed="${x==cur}">${x}</button>`).join(''));document.querySelectorAll(id+' .chip').forEach(b=>b.onclick=()=>{fn(b.textContent)})}
@@ -66,15 +67,25 @@ chips('#cats',CATS,cat,v=>{cat=v;render()});chips('#inds',INDS,ind,v=>{ind=v;ren
 const r=ARTICLES.filter(a=>(cat=="All"||a.c==cat)&&(ind=="All"||a.i==ind)&&(a.t+a.d+a.c).toLowerCase().includes(q));
 H('#list',r.length?r.map(a=>art(a)).join(''):'<p class="mut">No articles found. Try another search or reset the filters.</p>')}
 $('#q').oninput=render;render();
-H('#trend',ARTICLES.slice(3,7).map((a,i)=>`<a class="trend" href="#"><b>0${i+1}</b><div><strong>${a.t}</strong><div class="meta">${a.c}</div></div></a>`).join(''));
-H('#res',["How-to Guides","Beginner Guides","Tutorials","Checklists","Tips & Tricks","Technology Resources"].map(t=>`<div class="card"><span class="cat">Resource</span><h3 style="margin-top:6px">${t}</h3></div>`).join(''));
+H('#trend',ARTICLES.slice(3,7).map((a,i)=>`<a class="trend blog-article-link" href="#" data-article-index="${ARTICLES.indexOf(a)}"><b>0${i+1}</b><div><strong>${a.t}</strong><div class="meta">${a.c}</div></div></a>`).join(''));
+H('#res',["How-to Guides","Beginner Guides","Tutorials","Checklists","Tips & Tricks","Technology Resources"].map((t,i)=>{const a=ARTICLES[i];return `<a class="card blog-resource-link" href="#" data-article-index="${ARTICLES.indexOf(a)}"><span class="cat">Resource</span><h3 style="margin-top:6px">${t}</h3><span class="btn ghost" style="padding:8px 18px;margin-top:12px">Explore guide <span aria-hidden="true">→</span></span></a>`}).join(''));
 H('#spot',[["✦","AI & Automation","Smarter workflows and assistants."],["⚛","React / Next.js","Fast, modern web interfaces."],["☁","Cloud Technology","Scalable, resilient infrastructure."],["⛨","Cybersecurity","Protect data and trust."],["◍","Modern E-Commerce","Seamless, high-converting stores."]].map(a=>card(...a)).join(''));
 /* ===== Router ===== */
-function route(){const h=(location.hash||'#home').slice(1);const v=['home','about','services','careers','blog','contact'].includes(h)?h:'home';
+const PAGE_META={
+home:['AS Tech Solution PK | Your Vision, Our Code','Web, mobile, AI and custom software solutions for growing businesses. Explore AS Tech Solution PK.'],
+about:['About AS Tech Solution PK | Our Team & Approach','Learn about AS Tech Solution PK, our approach to building practical web, mobile, AI and custom software solutions.'],
+services:['Digital Services | AS Tech Solution PK','Explore web development, mobile apps, AI automation, e-commerce, SEO and custom software services.'],
+careers:['Careers | AS Tech Solution PK','Explore career opportunities and learn how to connect with the AS Tech Solution PK team.'],
+blog:['Technology Insights & Guides | AS Tech Solution PK','Read practical guides on AI automation, web development, mobile apps, UX, e-commerce and SEO.'],
+contact:['Contact AS Tech Solution PK | Start a Project','Contact AS Tech Solution PK about your website, app, AI or custom software project.']
+};
+function route(){const pages=['home','about','services','careers','blog','contact'];const requested=new URLSearchParams(location.search).get('page');const h=(location.hash||'').slice(1);const v=pages.includes(h)?h:pages.includes(requested)?requested:'home';
 document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id=='v-'+v));
 document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v==v));
+const [title,description]=PAGE_META[v],canonical=new URL(location.pathname,location.origin);if(v!=='home')canonical.searchParams.set('page',v);
+document.title=title;$('#page-description').content=description;$('#og-title').content=title;$('#og-description').content=description;$('#og-url').content=canonical.href;$('#page-canonical').href=canonical.href;
 scrollTo(0,0);observe();dispatchEvent(new Event("resize"))}
-addEventListener('hashchange',route);
+addEventListener('hashchange',route);addEventListener('popstate',route);
 /* ===== Reveal + counters ===== */
 let io;function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll(':scope > .card,:scope > .st').forEach((item,i)=>item.style.setProperty('--i',i));e.target.querySelectorAll('[data-count]').forEach(c=>{if(c.dataset.d)return;c.dataset.d=1;const T=+c.dataset.count;let n=0;const t=setInterval(()=>{n+=Math.ceil(T/40);if(n>=T){n=T;clearInterval(t)}c.textContent=n+(c.dataset.suffix||'')},30)});io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.view.on .rv,#stats').forEach(e=>{e.classList.add('rv');io.observe(e)})}
@@ -82,12 +93,13 @@ route();$('#yr').textContent=new Date().getFullYear();
 /* ===== WhatsApp ===== */
 document.querySelectorAll('[data-wa]').forEach(a=>{a.addEventListener('click',e=>{if(!/^\d{8,15}$/.test(WA_NUMBER)){e.preventDefault();alert("WhatsApp number not configured yet. Set WA_NUMBER in the script.");return}a.href="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(WA_MSG);a.target="_blank";a.rel="noopener"})});
 /* ===== Newsletter ===== */
+if(NEWSLETTER_ENDPOINT)document.querySelectorAll('.newsletter-signup').forEach(form=>form.hidden=false);
 $('#nl').onsubmit=async e=>{e.preventDefault();const m=$('#nlm'),v=$('#em').value.trim();
 if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){m.textContent="Please enter a valid email address.";m.style.color="#c0392b";return}
-if(!NEWSLETTER_ENDPOINT){m.textContent="Newsletter is not connected yet. Please contact us directly.";m.style.color="#b9770e";return}
+if(!NEWSLETTER_ENDPOINT){m.textContent="Email updates are not configured. Please contact us directly.";m.style.color="#b9770e";return}
 try{const r=await fetch(NEWSLETTER_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:v})});if(!r.ok)throw 0;m.textContent="Thank you! You are subscribed.";m.style.color="#1e8e4e";$('#em').value=""}catch{m.textContent="Something went wrong. Please try again.";m.style.color="#c0392b"}};
 /* ===== Chatbot ===== */
-const KB=[[/web|website/,"We design and build fast, secure, responsive websites tailored to your business goals."],[/mobile|app/,"We develop mobile apps for iOS and Android, from idea to launch."],[/ai|automat/,"Our AI & Automation services streamline workflows with smart, practical tools."],[/commerce|store|shop/,"We build e-commerce stores that are easy to manage and ready to scale."],[/market|seo/,"We offer digital marketing and SEO to help the right customers find you."],[/price|cost|estimate|quote/,"Pricing depends on scope. Share your project details and our team will prepare an estimate."],[/contact|human|team|call/,"You can reach our team through the WhatsApp chat button or by email at astechsoltionpk@gmail.com."]];
+const KB=[[/web|website/,"We design and build fast, secure, responsive websites tailored to your business goals."],[/mobile|app/,"We develop mobile apps for iOS and Android, from idea to launch."],[/ai|automat/,"Our AI & Automation services streamline workflows with smart, practical tools."],[/commerce|store|shop/,"We build e-commerce stores that are easy to manage and ready to scale."],[/market|seo/,"We offer digital marketing and SEO to help the right customers find you."],[/price|cost|estimate|quote/,"Pricing depends on scope. Share your project details and our team will prepare an estimate."],[/contact|human|team|call/,"You can reach our team through the WhatsApp chat button or by email at astechsolutionpk@gmail.com."]];
 const cm=$('#cm'),add=(t,u)=>{const d=document.createElement('div');d.className='m'+(u?' u':'');d.textContent=t;cm.appendChild(d);cm.scrollTop=1e9};
 H('#cq',["Website Development","Mobile Apps","AI & Automation","E-Commerce","Digital Marketing","Pricing / Project Estimate","Contact the Team"].map(x=>`<button class="chip" type="button">${x}</button>`).join(''));
 async function ask(t){add(t,1);let a;
@@ -199,6 +211,10 @@ H('#com',[["◎","Clear Communication","You always know where your project stand
 H('#roles',[["</>","Developers","Web, mobile and backend engineers."],["▤","Designers","UI/UX and visual designers."],["◉","Marketing & SEO","Growth and content specialists."],["◈","Project & QA","Delivery and quality champions."]].map(a=>card(...a)).join(''));
 H('#apply',["Apply","Review","Conversation","Decision"].map((t,i)=>`<div class="st"><i>0${i+1}</i><div><h3>${t}</h3></div></div>`).join(''));
 /* contact form */
+document.querySelector('.contact-scroll-link').addEventListener('click',e=>{
+e.preventDefault();
+$('#cf2').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+});
 $('#cf2').onsubmit=async e=>{e.preventDefault();const f=e.target,m=$('#cm2'),n=f.n.value.trim(),em=f.e.value.trim(),sv=f.s.value,phone=f.p.value.trim(),budget=f.b.value,g=f.g.value.trim(),bad=t=>{m.textContent=t;m.style.color='#c0392b'};
 if(!n||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)||!g)return bad('Please enter your name, a valid email and a message.');
 if(CONTACT_ENDPOINT){try{const r=await fetch(CONTACT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,email:em,phone,service:sv,budget,message:g})});if(!r.ok)throw 0;m.textContent='Thank you! We will get back to you soon.';m.style.color='#1e8e4e';f.reset()}catch{bad('Something went wrong. Please try again.')}return}
@@ -225,7 +241,7 @@ H('#faq1',mk([["What services do you offer?","Web, mobile, AI & automation, game
 H('#faq3',mk([["Who is AS Tech Solution PK?","A technology company offering web, mobile, AI, game and custom software solutions."],["How do you collaborate with clients?","We discover goals, plan, design, develop, test, then launch and support, keeping you informed throughout."],["Can small businesses work with you?","Yes. We help businesses of different sizes use modern technology to grow."],["Where can I see your work?","Ask our team on WhatsApp and we will share relevant examples."]]));
 H('#faq2',mk([["How is the price decided?","By scope: features, design depth, integrations, timeline and support needs."],["Can I start with a small budget?","Yes. Choose a range in the form or select “Not sure yet” and we will advise."],["Will I get a fixed quote?","After reviewing your requirements our team will discuss a quote with you."],["Can the project be done in phases?","Often yes. We can plan phases so you launch the essentials first."],["How do I get an estimate quickly?","Send the form. It opens WhatsApp with all your details so we can reply directly."],["Are there ongoing costs?","Hosting, domains or support may apply depending on your project. We explain these upfront."]]));
 H('#faq4',mk([["Are there open positions?","Check the Open Positions block or message us to ask about current opportunities."],["How do I apply?","Contact us on WhatsApp with your details and role of interest."],["Do you offer learning opportunities?","Learning, mentorship and skill development are part of what you can experience with us."],["Which roles do you hire for?","Developers, designers, marketing & SEO specialists and project/QA professionals."]]));
-H('#faq5',mk([["How often is the blog updated?","New articles are published as our team completes them."],["Can I suggest a topic?","Yes, send your idea through the Contact page."],["Can I search articles?","Use the Search Blog field at the top or the category filters."],["How do I get updates?","Subscribe to the newsletter once it is connected by the site owner."]]));
+H('#faq5',mk([["How often is the blog updated?","We publish practical technology insights and guides as they are prepared."],["Can I suggest a topic?","Yes, send your idea through the Contact page."],["Can I search articles?","Use the Search Blog field at the top or the category filters."],["How do I get updates?","Email us to request occasional technology updates."]]));
 H('#ins',ARTICLES.slice(0,3).map(a=>art(a)).join(''));
 H('#st3',[["①","Share your idea","Tell us your goals, budget range and timeline."],["②","Get a tailored plan","We outline scope, design direction and approach."],["③","Build & launch","We develop, test and launch, then stay close."]].map(a=>card(...a)).join(''));
 H('#qa',[["▭","Responsive on every device"],["◎","Accessible, readable design"],["⚡","Performance-minded builds"],["</>","Clean, maintainable code"],["✓","Tested before launch"],["◉","Clear communication"]].map(a=>c0(...a)).join(''));
@@ -241,11 +257,16 @@ H('#car',SV.map((x,i)=>`<div style="transform:rotateY(${i*360/SV.length}deg) tra
 /* floating orbs on inner heroes */
 document.querySelectorAll('.hero').forEach(h=>{if(!h.querySelector('.stage,#net'))h.insertAdjacentHTML('beforeend','<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i>')});
 /* ===== v4: footer + luxury 3D ===== */
-H('#fsv',SV.map(x=>`<li><a href="#services">${x}</a></li>`).join(''));
-Object.entries(SOCIAL).filter(([name,url])=>url&&SOCIAL_ICONS[name]).forEach(([name,url])=>$('#soc').insertAdjacentHTML('beforeend',`<a href="${url}" target="_blank" rel="noopener" aria-label="${name}" title="${name}">${SOCIAL_ICONS[name]}</a>`));
+H('#fsv',SV.map(x=>`<li><a href="index.html?page=services">${x}</a></li>`).join(''));
+const addSocialLinks=(container,profiles,owner)=>Object.entries(profiles).forEach(([name,url])=>{
+  if(!url||!SOCIAL_ICONS[name])return;
+  container.insertAdjacentHTML('beforeend',`<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${owner} on ${name}" title="${owner} — ${name}">${SOCIAL_ICONS[name]}</a>`);
+});
+addSocialLinks($('#ceo-soc'),CEO_SOCIAL,'Ayesha Sadiqa');
+addSocialLinks($('#company-soc'),COMPANY_SOCIAL,'AS Tech Solution PK');
 $('#fnl').onsubmit=async e=>{e.preventDefault();const m=$('#fnm'),v=$('#fem').value.trim(),z=(t,c)=>{m.textContent=t;m.style.color=c};
 if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v))return z('Please enter a valid email address.','#ff9a8f');
-if(!NEWSLETTER_ENDPOINT)return z('Newsletter is not connected yet. Please contact us directly.','#ffd27a');
+if(!NEWSLETTER_ENDPOINT)return z('Email updates are not configured. Please contact us directly.','#ffd27a');
 try{const r=await fetch(NEWSLETTER_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:v})});if(!r.ok)throw 0;z('Thank you! You are subscribed.','#7ee2a8');$('#fem').value=''}catch{z('Something went wrong. Please try again.','#ff9a8f')}};
 const POL={privacy:"We use the details you share through our forms and WhatsApp only to respond to your enquiry and deliver our services. Contact us with any questions about your data.",terms:"Project scope, timelines and pricing are agreed with each client before work begins. Contact us to discuss the details of your project."};
 document.querySelectorAll('[data-pol]').forEach(a=>a.onclick=e=>{e.preventDefault();$('#polt').textContent=a.dataset.pol=='privacy'?'Privacy Policy':'Terms';$('#polb').textContent=POL[a.dataset.pol];$('#pol').showModal()});
@@ -267,7 +288,7 @@ car();let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(car,2
 if(matchMedia('(hover:none)').matches)addEventListener('scroll',()=>{const y=Math.min(scrollY/600,1);document.querySelectorAll('.stage:not(.hero-visual)').forEach(t=>t.style.transform='perspective(1000px) rotateX('+y*14+'deg) rotateY('+y*-12+'deg)')},{passive:true});
 
 /* ===== v6: services, reviews, pictures, gmail ===== */
-const EMAIL="astechsoltionpk@gmail.com";
+const EMAIL="astechsolutionpk@gmail.com";
 const PIC={web:'<svg viewBox="0 0 400 250"><rect x="50" y="34" width="300" height="190" rx="14" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.35)"/><rect x="50" y="34" width="300" height="26" rx="14" fill="rgba(255,255,255,.14)"/><circle cx="68" cy="47" r="4" fill="#ff7b7b"/><circle cx="82" cy="47" r="4" fill="#ffd27a"/><circle cx="96" cy="47" r="4" fill="#7ee2a8"/><rect x="68" y="80" width="120" height="16" rx="6" fill="#497ef3"/><rect x="68" y="106" width="170" height="8" rx="4" fill="rgba(255,255,255,.4)"/><rect x="68" y="122" width="140" height="8" rx="4" fill="rgba(255,255,255,.25)"/><rect x="68" y="150" width="82" height="58" rx="10" fill="rgba(73,126,243,.45)"/><rect x="160" y="150" width="82" height="58" rx="10" fill="rgba(255,255,255,.18)"/><rect x="252" y="150" width="82" height="58" rx="10" fill="rgba(255,255,255,.12)"/><circle cx="300" cy="92" r="26" fill="rgba(150,181,248,.55)"/></svg>',
 mob:'<svg viewBox="0 0 400 250"><rect x="150" y="14" width="100" height="222" rx="18" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.45)" stroke-width="2"/><rect x="190" y="22" width="20" height="5" rx="2.5" fill="rgba(255,255,255,.5)"/><rect x="162" y="40" width="76" height="46" rx="8" fill="#497ef3"/><rect x="162" y="96" width="76" height="14" rx="5" fill="rgba(255,255,255,.3)"/><rect x="162" y="118" width="76" height="14" rx="5" fill="rgba(255,255,255,.2)"/><rect x="162" y="140" width="34" height="34" rx="8" fill="rgba(150,181,248,.5)"/><rect x="204" y="140" width="34" height="34" rx="8" fill="rgba(255,255,255,.2)"/><circle cx="90" cy="70" r="22" fill="rgba(150,181,248,.35)"/><circle cx="318" cy="170" r="30" fill="rgba(73,126,243,.35)"/><rect x="292" y="52" width="60" height="30" rx="8" fill="rgba(255,255,255,.14)"/></svg>',
 ai:'<svg viewBox="0 0 400 250"><g stroke="rgba(150,181,248,.55)" stroke-width="2"><path d="M200 125 80 60M200 125 90 190M200 125 320 55M200 125 330 195M80 60 90 190M320 55 330 195M200 125 200 30M200 125 200 222"/></g><circle cx="200" cy="125" r="34" fill="#497ef3"/><circle cx="200" cy="125" r="50" fill="none" stroke="rgba(255,255,255,.35)"/><g fill="rgba(255,255,255,.85)"><circle cx="80" cy="60" r="11"/><circle cx="90" cy="190" r="11"/><circle cx="320" cy="55" r="11"/><circle cx="330" cy="195" r="11"/><circle cx="200" cy="30" r="8"/><circle cx="200" cy="222" r="8"/></g><text x="200" y="131" text-anchor="middle" font-family="Sora,Arial" font-weight="700" font-size="18" fill="#fff">AI</text></svg>',

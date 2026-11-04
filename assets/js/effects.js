@@ -107,26 +107,28 @@ $('#cb').addEventListener('click',()=>tz.classList.remove('on'));
   const wa = dlg.querySelector('[data-wa]');
   if(wa) wa.href = 'https://wa.me/923287801028?text=' + encodeURIComponent("Hello AS Tech Solution PK, I'd like to know more about one of your blog topics.");
   document.addEventListener('click', e=>{
-    const a = e.target.closest && e.target.closest('article.card a');
+    const a = e.target.closest && e.target.closest('article.card a, a.blog-article-link, a.blog-resource-link');
     if(!a) return;
     const href = a.getAttribute('href');
     if(href && href !== '#') return;              // real article link: let it work
     e.preventDefault();
     const card = a.closest('article');
-    const t = card.querySelector('h3'), c = card.querySelector('.cat');
-    const article = ARTICLES.find(item => item.t === (t && t.textContent));
-    document.getElementById('artt').textContent = t ? t.textContent : 'Article';
-    document.getElementById('artc').textContent = c ? c.textContent : '';
+    const articleIndex = Number(a.dataset.articleIndex);
+    const article = Number.isInteger(articleIndex) && articleIndex >= 0 ? ARTICLES[articleIndex] : null;
+    const t = card && card.querySelector('h3'), c = card && card.querySelector('.cat');
+    const resolvedArticle = article || ARTICLES.find(item => item.t === (t && t.textContent));
+    document.getElementById('artt').textContent = resolvedArticle ? resolvedArticle.t : t ? t.textContent : 'Article';
+    document.getElementById('artc').textContent = resolvedArticle ? resolvedArticle.c : c ? c.textContent : '';
     const body = document.getElementById('artbody');
     body.replaceChildren();
     const intro = document.createElement('p');
-    intro.textContent = article ? article.body : 'This article could not be loaded. Please try again.';
+    intro.textContent = resolvedArticle ? resolvedArticle.body : 'This article could not be loaded. Please try again.';
     body.appendChild(intro);
-    if(article&&article.tips){
+    if(resolvedArticle&&resolvedArticle.tips){
       const heading=document.createElement('h4');
       heading.textContent='Quick takeaways';
       const list=document.createElement('ul');
-      article.tips.forEach(tip=>{const item=document.createElement('li');item.textContent=tip;list.appendChild(item)});
+      resolvedArticle.tips.forEach(tip=>{const item=document.createElement('li');item.textContent=tip;list.appendChild(item)});
       body.append(heading,list);
     }
     if(dlg.showModal) dlg.showModal();
